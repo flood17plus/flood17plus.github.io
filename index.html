@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Flood17Plus — флуд-чат сообщество по Genshin Impact. Ивенты, кооп, творчество.">
+  <meta name="theme-color" content="#050510">
+  <title>Flood17Plus — Genshin Impact Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <div class="loader-inner">
+      <img src="assets/images/logo.jpg" alt="Flood17+" class="loader-logo">
+      <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- Noise -->
+  <div class="noise"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo magnetic" data-hover>
+        <img src="assets/images/logo.jpg" alt="Flood17+" class="nav-logo-img">
+        <span>FLOOD<b>17+</b></span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#announcements" class="nav-link" data-hover>Важное</a>
+        <a href="#events" class="nav-link" data-hover>Ивенты</a>
+        <a href="#archive" class="nav-link" data-hover>Архив</a>
+        <a href="#rules" class="nav-link" data-hover>Правила</a>
+      </div>
+      <a href="https://t.me/flood17plus" target="_blank" rel="noopener" class="nav-tg magnetic" data-hover>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 1 0 24 12.056A12.014 12.014 0 0 0 11.944 0Zm5.654 8.153l-1.755 8.27c-.131.586-.477.727-.966.453l-2.668-1.967-1.286 1.238c-.143.143-.262.262-.537.262l.191-2.714 4.931-4.454c.214-.191-.047-.297-.332-.106l-6.094 3.837-2.625-.819c-.571-.179-.583-.571.119-.846l10.258-3.952c.476-.175.891.106.764.798Z"/></svg>
+        Telegram
+      </a>
+      <button class="nav-burger" id="navBurger" data-hover aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mob-menu" id="mobMenu">
+    <a href="#hero" class="mob-link" data-hover>Главная</a>
+    <a href="#announcements" class="mob-link" data-hover>Важное</a>
+    <a href="#events" class="mob-link" data-hover>Ивенты</a>
+    <a href="#archive" class="mob-link" data-hover>Архив</a>
+    <a href="#rules" class="mob-link" data-hover>Правила</a>
+    <a href="https://t.me/flood17plus" target="_blank" rel="noopener" class="mob-link mob-link--accent" data-hover>Telegram</a>
+  </div>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="hero">
+      <div class="hero-bg">
+        <div class="hero-glow hero-glow--1"></div>
+        <div class="hero-glow hero-glow--2"></div>
+        <div class="hero-glow hero-glow--3"></div>
+        <div class="hero-grid-lines"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-badge reveal-up">Genshin Impact / Telegram Community</div>
+        <h1 class="hero-title">
+          <span class="reveal-up" style="--d:.1s">FLOOD</span>
+          <span class="hero-title--accent reveal-up" style="--d:.2s">17+</span>
+        </h1>
+        <p class="hero-desc reveal-up" style="--d:.3s">Самый живой флуд по Геншину. Ивенты, кооп события, разговоры по душам и много всякого прочего.</p>
+        <div class="hero-btns reveal-up" style="--d:.4s">
+          <a href="https://t.me/flood17plus" target="_blank" rel="noopener" class="btn btn--primary magnetic" data-hover>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 1 0 24 12.056A12.014 12.014 0 0 0 11.944 0Zm5.654 8.153l-1.755 8.27c-.131.586-.477.727-.966.453l-2.668-1.967-1.286 1.238c-.143.143-.262.262-.537.262l.191-2.714 4.931-4.454c.214-.191-.047-.297-.332-.106l-6.094 3.837-2.625-.819c-.571-.179-.583-.571.119-.846l10.258-3.952c.476-.175.891.106.764.798Z"/></svg>
+            Присоединиться
+          </a>
+          <a href="#events" class="btn btn--outline magnetic" data-hover>
+            Ивенты
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </a>
+        </div>
+        <div class="hero-stats reveal-up" style="--d:.55s">
+          <div class="hero-stat">
+            <span class="stat-num" data-count="50">0</span>
+            <span class="stat-txt">участников</span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-num" data-count="600">0</span>
+            <span class="stat-txt">дней вместе</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-scroll reveal-up" style="--d:.65s">
+        <div class="hero-scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- Announcements -->
+    <section class="section" id="announcements">
+      <div class="container">
+        <header class="sec-head">
+          <span class="sec-tag reveal-up">Важное</span>
+          <h2 class="sec-title reveal-up" style="--d:.08s">Объявления</h2>
+        </header>
+        <div class="ann-grid" id="annList"></div>
+      </div>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section class="section section--alt" id="events">
+      <div class="container">
+        <header class="sec-head">
+          <span class="sec-tag reveal-up">Ивенты</span>
+          <h2 class="sec-title reveal-up" style="--d:.08s">Ближайшие события</h2>
+        </header>
+        <div class="ev-toolbar reveal-up" style="--d:.12s">
+          <div class="ev-search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="evSearch" placeholder="Поиск..." data-hover autocomplete="off">
+          </div>
+          <div class="ev-filters" id="evFilters">
+            <button class="ev-filter active" data-filter="all" data-hover>Все</button>
+          </div>
+        </div>
+        <div class="ev-grid" id="upcomingGrid"></div>
+        <div class="ev-empty hidden" id="upcomingEmpty"><p>Нет предстоящих ивентов</p></div>
+      </div>
+    </section>
+
+    <!-- Archive -->
+    <section class="section" id="archive">
+      <div class="container">
+        <header class="sec-head">
+          <span class="sec-tag reveal-up">Архив</span>
+          <h2 class="sec-title reveal-up" style="--d:.08s">Прошедшие события</h2>
+        </header>
+        <div class="ev-grid" id="pastGrid"></div>
+      </div>
+    </section>
+
+    <!-- Rules -->
+    <section class="section section--alt" id="rules">
+      <div class="container">
+        <header class="sec-head">
+          <span class="sec-tag reveal-up">Правила</span>
+          <h2 class="sec-title reveal-up" style="--d:.08s">Правила чата</h2>
+        </header>
+        <div class="rules-grid">
+          <div class="rule reveal-up">
+            <span class="rule-n">01</span>
+            <div><h3>Уважение</h3><p>Оскорбления, буллинг и токсичность — бан без предупреждения.</p></div>
+          </div>
+          <div class="rule reveal-up" style="--d:.04s">
+            <span class="rule-n">02</span>
+            <div><h3>Спойлеры</h3><p>Только под тегом. Первые 2 недели после патча — строгий режим.</p></div>
+          </div>
+          <div class="rule reveal-up" style="--d:.08s">
+            <span class="rule-n">03</span>
+            <div><h3>Контент 17+</h3><p>Свободное общение, но без откровенного NSFW в общих темах.</p></div>
+          </div>
+          <div class="rule reveal-up" style="--d:.12s">
+            <span class="rule-n">04</span>
+            <div><h3>Без спама</h3><p>Никакой рекламы без согласования. Флуд стикерами — мут.</p></div>
+          </div>
+          <div class="rule reveal-up" style="--d:.16s">
+            <span class="rule-n">05</span>
+            <div><h3>Тематика</h3><p>Genshin Impact и HoYoverse. Оффтоп — ок, но не доминирует.</p></div>
+          </div>
+          <div class="rule reveal-up" style="--d:.2s">
+            <span class="rule-n">06</span>
+            <div><h3>Варны</h3><p>1 — предупреждение. 2 — мут 24ч. 3 — бан неделя. 4 — перм. Сброс: 30 дней.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Event Lightbox -->
+  <div class="lb" id="lb">
+    <div class="lb-backdrop" id="lbBackdrop"></div>
+    <div class="lb-panel" id="lbPanel">
+      <button class="lb-close" id="lbClose" data-hover aria-label="Закрыть">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="lb-content" id="lbContent"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="assets/images/logo.jpg" alt="" class="footer-logo-img">
+          <div>
+            <span class="footer-name">FLOOD<b>17+</b></span>
+            <p class="footer-about">Сообщество по Genshin Impact.<br>Общаемся, играем, творим.</p>
+          </div>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h4>Навигация</h4>
+            <a href="#hero" data-hover>Главная</a>
+            <a href="#announcements" data-hover>Объявления</a>
+            <a href="#events" data-hover>Ивенты</a>
+            <a href="#rules" data-hover>Правила</a>
+          </div>
+          <div class="footer-col">
+            <h4>Ссылки</h4>
+            <a href="https://t.me/flood17plus" target="_blank" rel="noopener" data-hover>Telegram чат</a>
+            <a href="https://t.me/flood17plus_news" target="_blank" rel="noopener" data-hover>Канал новостей</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Flood17Plus</span>
+        <span>Лучший флуд</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
