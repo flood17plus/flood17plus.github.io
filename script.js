@@ -4,10 +4,21 @@
    ========================================================= */
 
 (() => {
-  const isMobile = matchMedia('(max-width: 768px)').matches;
-  const isSmall  = matchMedia('(max-width: 480px)').matches;
+  // Надёжный детект мобилок/слабых устройств: не только по ширине экрана,
+  // но и по тач-указателю и числу CPU-ядер. Это ловит телефоны, которые
+  // по viewport-у могут репортить >768px (desktop mode, мелкий zoom и т.п.)
+  const mqCoarse = matchMedia('(pointer: coarse)').matches;
+  const mqNoHover = matchMedia('(hover: none)').matches;
+  const hasTouch  = 'ontouchstart' in window || (navigator.maxTouchPoints || 0) > 0;
+  const narrowVp  = matchMedia('(max-width: 900px)').matches;
+  const fewCores  = typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency < 6;
+
+  const isMobile = mqCoarse || mqNoHover || hasTouch || narrowVp || fewCores;
+  const isSmall  = matchMedia('(max-width: 480px)').matches || (isMobile && window.innerWidth < 560);
   const reduced  = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const lowPower = isMobile; // используем как триггер для упрощений
+  const lowPower = isMobile;
+
+  if (isMobile) document.body.classList.add('is-mobile');
 
   const rand  = (min, max) => Math.random() * (max - min) + min;
   const randi = (min, max) => Math.floor(rand(min, max + 1));

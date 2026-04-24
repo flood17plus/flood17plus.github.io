@@ -886,6 +886,65 @@ body.loaded .hint { opacity: 1; }
   .fog, .blood-veil, .fireflies, .embers, .altar-glow { display: none; }
 }
 
+/* ===== Страховка: те же перф-правила, когда JS ставит body.is-mobile
+   (виджеты/браузеры, которые репортят широкий viewport на телефоне) ===== */
+body.is-mobile .fog-2,
+body.is-mobile .fog-3 { display: none; }
+body.is-mobile .fog {
+  filter: blur(18px);
+  mix-blend-mode: normal;
+  opacity: 0.18 !important;
+}
+body.is-mobile .moon-corona { animation: none; filter: blur(10px); }
+body.is-mobile .moon {
+  box-shadow: inset -8px -12px 28px rgba(10, 2, 4, 0.85), 0 0 30px rgba(139, 26, 26, 0.3);
+}
+body.is-mobile .forest-back,
+body.is-mobile .forest-mid { filter: none; animation: none; }
+body.is-mobile .branch { filter: none; }
+body.is-mobile .altar-glow { filter: blur(14px); animation: none; }
+body.is-mobile .candle::after {
+  width: 28px; height: 28px;
+  filter: blur(3px);
+  mix-blend-mode: normal;
+  background: radial-gradient(circle, rgba(255, 140, 70, 0.35), transparent 70%);
+  animation: none;
+}
+body.is-mobile .candle::before { filter: none; }
+body.is-mobile .firefly {
+  box-shadow: 0 0 5px rgba(255, 120, 80, 0.8);
+  animation-duration: 14s, 2.6s;
+}
+body.is-mobile .medallion-frame {
+  background: radial-gradient(circle at 30% 25%, #3a1a14 0%, #1a0a08 60%, #0a0305 100%);
+  box-shadow:
+    inset 0 0 0 2px #0a0305,
+    inset 0 0 10px rgba(0, 0, 0, 0.8),
+    0 0 16px rgba(139, 26, 26, 0.5),
+    0 8px 20px rgba(0, 0, 0, 0.8);
+}
+body.is-mobile .medallion-frame::before {
+  background: radial-gradient(circle, transparent 70%, #8b1a1a 72%, transparent 76%);
+  filter: none;
+}
+body.is-mobile .rune { animation-duration: 6s; }
+body.is-mobile .blood-veil { mix-blend-mode: normal; opacity: 0.4; }
+body.is-mobile .title {
+  text-shadow:
+    0 0 1px rgba(0, 0, 0, 0.9),
+    0 0 12px rgba(196, 58, 42, 0.75),
+    0 0 28px rgba(139, 26, 26, 0.55);
+}
+/* Если JS по какой-то причине создал span.ch на мобиле — всё равно проявляем без filter/blur */
+body.is-mobile .reveal .ch {
+  filter: none !important;
+  animation: char-ignite-fast 0.4s ease-out forwards;
+}
+@keyframes char-ignite-fast {
+  0%   { opacity: 0; transform: translateY(3px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 /* ===== simple-reveal: поблочный fade-in вместо побуквенного ===== */
 /* Включается JS на мобиле/при reduced-motion. Проявляет заголовок/стих/благословение
    друг за другом, без создания сотни span.ch — никакого лага. */
