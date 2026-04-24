@@ -775,15 +775,102 @@ body.loaded .hint { opacity: 1; }
   .moon-wrap { left: 64%; width: 30vw; }
 }
 
+/* ===== Мобильная оптимизация ===== */
 @media (max-width: 768px) {
   :root { --medallion-size: clamp(88px, 22vw, 120px); }
+
   .moon-wrap { top: 4%; left: 60%; width: 42vw; }
   .center-column { top: 52%; width: 94vw; gap: 22px; }
   .altar { gap: clamp(10px, 2.5vw, 22px); }
-  .fog { filter: blur(24px); }
+
+  /* Один слой тумана вместо трёх, без blend-mode */
+  .fog-2, .fog-3 { display: none; }
+  .fog {
+    filter: blur(18px);
+    mix-blend-mode: normal;
+    opacity: 0.18 !important;
+  }
+
+  /* Луна — статичная корона, без blur-анимации */
+  .moon-corona {
+    animation: none;
+    filter: blur(10px);
+  }
+  .moon { box-shadow: inset -8px -12px 28px rgba(10, 2, 4, 0.85), 0 0 30px rgba(139, 26, 26, 0.3); }
+
+  /* Лес — без blur и без качания */
+  .forest-back { filter: none; animation: none; }
+  .forest-mid  { filter: none; animation: none; }
+
+  /* Ветви-рамка — без drop-shadow */
+  .branch { filter: none; }
+
+  /* Центральное свечение — меньше blur */
+  .altar-glow { filter: blur(14px); animation: none; }
+
+  /* Свечи — меньше ореол и без mix-blend-mode */
+  .candle::after {
+    width: 28px; height: 28px;
+    filter: blur(3px);
+    mix-blend-mode: normal;
+    background: radial-gradient(circle, rgba(255, 140, 70, 0.35), transparent 70%);
+    animation: none;
+  }
+  .candle::before { filter: none; }
+
+  /* Искры — не запускаются на мобиле (см. JS), но на всякий случай */
+  .ember { filter: none; }
+
+  /* Светлячки — упрощённое свечение */
+  .firefly {
+    box-shadow: 0 0 5px rgba(255, 120, 80, 0.8);
+    animation-duration: 14s, 2.6s;
+  }
+
+  /* Медальоны — без тяжёлых conic и мульти-shadow */
+  .medallion-frame {
+    background: radial-gradient(circle at 30% 25%, #3a1a14 0%, #1a0a08 60%, #0a0305 100%);
+    box-shadow:
+      inset 0 0 0 2px #0a0305,
+      inset 0 0 10px rgba(0, 0, 0, 0.8),
+      0 0 16px rgba(139, 26, 26, 0.5),
+      0 8px 20px rgba(0, 0, 0, 0.8);
+  }
+  .medallion-frame::before {
+    background: radial-gradient(circle, transparent 70%, #8b1a1a 72%, transparent 76%);
+    filter: none;
+  }
+
+  /* Реже пульсация рун */
+  .rune { animation-duration: 6s; }
+
+  /* Кровавая вуаль — ощутимо проще */
+  .blood-veil { mix-blend-mode: normal; opacity: 0.4; }
+
+  /* Заголовок — чуть меньше shadow-слоёв */
+  .title {
+    text-shadow:
+      0 0 1px rgba(0, 0, 0, 0.9),
+      0 0 12px rgba(196, 58, 42, 0.75),
+      0 0 28px rgba(139, 26, 26, 0.55);
+  }
+
+  /* Reveal — быстрее, меньше blur */
+  .reveal .ch {
+    filter: blur(3px) brightness(1.4);
+    animation-duration: 0.6s;
+  }
+  @keyframes char-ignite {
+    0%   { opacity: 0;   filter: blur(3px) brightness(1.6); transform: translateY(5px); }
+    100% { opacity: 1;   filter: blur(0)   brightness(1);   transform: translateY(0);   }
+  }
+  .verse .ch    { animation-delay: calc(4.8s + var(--i, 0) * 14ms); }
+  .blessing .ch { animation-delay: calc(6s   + var(--i, 0) * 18ms); }
+
   .hint { font-size: 0.6rem; letter-spacing: 0.25em; bottom: 10px; }
 }
 
+/* ===== Очень маленькие экраны (телефон) ===== */
 @media (max-width: 480px) {
   :root { --medallion-size: 82px; }
   .moon-wrap { top: 3%; width: 48vw; }
@@ -795,6 +882,18 @@ body.loaded .hint { opacity: 1; }
   .medallion.m-center { transform: scale(1.1); }
   .rune { font-size: 8px; }
   .title { letter-spacing: 0; }
+
+  /* Полностью отключаем fog и blood-veil на маленьких */
+  .fog, .blood-veil { display: none; }
+  .altar-glow { opacity: 0.5 !important; }
+
+  /* Ещё меньше box-shadow на свечах */
+  .candle { box-shadow: none; }
+}
+
+/* ===== Сберегай трафик ===== */
+@media (prefers-reduced-data: reduce) {
+  .fog, .blood-veil, .fireflies, .embers, .altar-glow { display: none; }
 }
 
 /* ====== Reduced motion ====== */

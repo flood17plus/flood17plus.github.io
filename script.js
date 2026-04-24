@@ -1,20 +1,40 @@
 /* =========================================================
    Кровавая луна — скрипт сцены
-   Генерация декора, intro, parallax, интерактив с медальонами
+   Декор, intro, parallax, интерактив, резолвер фото
    ========================================================= */
 
 (() => {
   const isMobile = matchMedia('(max-width: 768px)').matches;
   const isSmall  = matchMedia('(max-width: 480px)').matches;
   const reduced  = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const lowPower = isMobile; // используем как триггер для упрощений
 
   const rand  = (min, max) => Math.random() * (max - min) + min;
   const randi = (min, max) => Math.floor(rand(min, max + 1));
   const pick  = (arr) => arr[randi(0, arr.length - 1)];
 
+  /* ---------- Каскадный резолвер фото для медальонов ---------- */
+  // Пробуем разные расширения и регистры, прежде чем показать placeholder.
+  // Покрывает: фото закоммичены в любом формате (.jpg/.jpeg/.png/.webp + регистр).
+  document.querySelectorAll('.medallion-photo[data-slot]').forEach((img) => {
+    const slot = img.dataset.slot;
+    const exts = ['jpg', 'jpeg', 'png', 'webp', 'JPG', 'JPEG', 'PNG', 'WEBP'];
+    let i = 0;
+    const tryNext = () => {
+      if (i >= exts.length) {
+        img.onerror = null;
+        img.src = `photos/placeholder-${slot}.svg`;
+        return;
+      }
+      img.src = `photos/${slot}.${exts[i++]}`;
+    };
+    img.onerror = tryNext;
+    tryNext();
+  });
+
   /* ---------- Звёзды ---------- */
   const starsHost = document.querySelector('.stars');
-  const starCount = isSmall ? 60 : isMobile ? 90 : 140;
+  const starCount = isSmall ? 35 : isMobile ? 60 : 130;
   {
     const frag = document.createDocumentFragment();
     for (let i = 0; i < starCount; i++) {
@@ -32,7 +52,7 @@
 
   /* ---------- Глаза духов ---------- */
   const eyesHost = document.querySelector('.eyes');
-  const eyeCount = isSmall ? 6 : isMobile ? 10 : 14;
+  const eyeCount = isSmall ? 4 : isMobile ? 6 : 14;
   const eyeColors = ['#ff5a3a', '#c43a2a', '#ff7744', '#ffaa66'];
   {
     const frag = document.createDocumentFragment();
@@ -62,7 +82,7 @@
 
   /* ---------- Свечи ---------- */
   const candlesHost = document.querySelector('.candles');
-  const candleCount = isSmall ? 18 : isMobile ? 32 : 52;
+  const candleCount = isSmall ? 10 : isMobile ? 18 : 48;
   {
     const frag = document.createDocumentFragment();
     for (let i = 0; i < candleCount; i++) {
@@ -71,7 +91,6 @@
       const depth = (y - 62) / 32;
       const scale = 0.5 + depth * 1.0;
       c.className = 'candle' + (depth < 0.25 ? ' far' : depth > 0.75 ? ' near' : '');
-      // избегаем центра (где алтарь/текст)
       let x;
       do { x = rand(2, 98); } while (depth < 0.5 && x > 36 && x < 64);
       c.style.left = x + 'vw';
@@ -86,7 +105,7 @@
 
   /* ---------- Светлячки ---------- */
   const firefliesHost = document.querySelector('.fireflies');
-  const fireflyCount = isSmall ? 7 : isMobile ? 12 : 20;
+  const fireflyCount = isSmall ? 4 : isMobile ? 8 : 18;
   {
     const frag = document.createDocumentFragment();
     for (let i = 0; i < fireflyCount; i++) {
@@ -130,13 +149,13 @@
   if (document.fonts && document.fonts.ready) {
     Promise.race([
       document.fonts.ready,
-      new Promise((r) => setTimeout(r, 1200)),
+      new Promise((r) => setTimeout(r, 1000)),
     ]).then(() => requestAnimationFrame(startScene));
   } else {
     setTimeout(startScene, 200);
   }
 
-  /* ---------- Parallax ---------- */
+  /* ---------- Parallax (только десктоп) ---------- */
   if (!isMobile && !reduced) {
     const parallaxEls = document.querySelectorAll('.parallax');
     let tx = 0, ty = 0, cx = 0, cy = 0;
@@ -160,9 +179,9 @@
     requestAnimationFrame(tick);
   }
 
-  /* ---------- Ambient искры из центра ---------- */
+  /* ---------- Ambient искры (только десктоп) ---------- */
   const embersHost = document.querySelector('.embers');
-  if (embersHost && !reduced) {
+  if (embersHost && !reduced && !lowPower) {
     const spawnEmber = () => {
       if (document.hidden) return;
       const e = document.createElement('div');
@@ -182,18 +201,18 @@
     setTimeout(schedule, 4500);
   }
 
-  /* ---------- Клик по медальону: ignite + порция искр ---------- */
+  /* ---------- Клик по медальону: ignite + искры ---------- */
   document.querySelectorAll('.medallion').forEach((med) => {
     med.addEventListener('click', () => {
       med.classList.remove('ignited');
       void med.offsetWidth;
       med.classList.add('ignited');
 
-      if (!embersHost) return;
+      if (!embersHost || lowPower) return;
       const rect = med.getBoundingClientRect();
       const px = ((rect.left + rect.width / 2) / window.innerWidth) * 100;
       const py = ((rect.top + rect.height / 2) / window.innerHeight) * 100;
-      for (let i = 0; i < 18; i++) {
+      for (let i = 0; i < 16; i++) {
         setTimeout(() => {
           const el = document.createElement('div');
           el.className = 'ember';
@@ -208,16 +227,4 @@
       }
     });
   });
-
-  /* ---------- Дальний гул ветра: лёгкие порывы на тумане ---------- */
-  const fogs = document.querySelectorAll('.fog');
-  if (fogs.length && !reduced) {
-    setInterval(() => {
-      if (document.hidden) return;
-      const gust = 1 + Math.random() * 0.3;
-      fogs.forEach((f) => {
-        f.style.filter = `blur(${(34 + Math.random() * 14).toFixed(0)}px) brightness(${gust.toFixed(2)})`;
-      });
-    }, 5000);
-  }
 })();
