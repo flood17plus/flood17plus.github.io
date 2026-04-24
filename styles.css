@@ -855,17 +855,7 @@ body.loaded .hint { opacity: 1; }
       0 0 28px rgba(139, 26, 26, 0.55);
   }
 
-  /* Reveal — быстрее, меньше blur */
-  .reveal .ch {
-    filter: blur(3px) brightness(1.4);
-    animation-duration: 0.6s;
-  }
-  @keyframes char-ignite {
-    0%   { opacity: 0;   filter: blur(3px) brightness(1.6); transform: translateY(5px); }
-    100% { opacity: 1;   filter: blur(0)   brightness(1);   transform: translateY(0);   }
-  }
-  .verse .ch    { animation-delay: calc(4.8s + var(--i, 0) * 14ms); }
-  .blessing .ch { animation-delay: calc(6s   + var(--i, 0) * 18ms); }
+  /* На мобиле побуквенный reveal отключён (simple-reveal выставляет JS) */
 
   .hint { font-size: 0.6rem; letter-spacing: 0.25em; bottom: 10px; }
 }
@@ -894,6 +884,23 @@ body.loaded .hint { opacity: 1; }
 /* ===== Сберегай трафик ===== */
 @media (prefers-reduced-data: reduce) {
   .fog, .blood-veil, .fireflies, .embers, .altar-glow { display: none; }
+}
+
+/* ===== simple-reveal: поблочный fade-in вместо побуквенного ===== */
+/* Включается JS на мобиле/при reduced-motion. Проявляет заголовок/стих/благословение
+   друг за другом, без создания сотни span.ch — никакого лага. */
+body.simple-reveal .reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: reveal-block 0.7s ease-out forwards;
+  will-change: opacity, transform;
+}
+body.simple-reveal .title.reveal    { animation-delay: 3.8s; }
+body.simple-reveal .verse.reveal    { animation-delay: 4.4s; }
+body.simple-reveal .blessing.reveal { animation-delay: 5.0s; }
+
+@keyframes reveal-block {
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ====== Reduced motion ====== */

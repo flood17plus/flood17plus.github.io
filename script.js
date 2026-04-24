@@ -120,29 +120,34 @@
     firefliesHost.appendChild(frag);
   }
 
-  /* ---------- Reveal букв ---------- */
-  document.querySelectorAll('.reveal').forEach((el) => {
-    const lines = el.innerHTML
-      .split(/<br\s*\/?>/i)
-      .map((s) => s.replace(/\s+/g, ' ').trim())
-      .filter(Boolean);
-    el.innerHTML = '';
-    let charIdx = 0;
-    lines.forEach((line, lineIdx) => {
-      if (lineIdx > 0) el.appendChild(document.createElement('br'));
-      [...line].forEach((ch) => {
-        if (ch === ' ') {
-          el.appendChild(document.createTextNode(' '));
-          return;
-        }
-        const span = document.createElement('span');
-        span.className = 'ch';
-        span.textContent = ch;
-        span.style.setProperty('--i', charIdx++);
-        el.appendChild(span);
+  /* ---------- Reveal букв (только десктоп — на мобиле лагает) ---------- */
+  if (!isMobile && !reduced) {
+    document.querySelectorAll('.reveal').forEach((el) => {
+      const lines = el.innerHTML
+        .split(/<br\s*\/?>/i)
+        .map((s) => s.replace(/\s+/g, ' ').trim())
+        .filter(Boolean);
+      el.innerHTML = '';
+      let charIdx = 0;
+      lines.forEach((line, lineIdx) => {
+        if (lineIdx > 0) el.appendChild(document.createElement('br'));
+        [...line].forEach((ch) => {
+          if (ch === ' ') {
+            el.appendChild(document.createTextNode(' '));
+            return;
+          }
+          const span = document.createElement('span');
+          span.className = 'ch';
+          span.textContent = ch;
+          span.style.setProperty('--i', charIdx++);
+          el.appendChild(span);
+        });
       });
     });
-  });
+  } else {
+    // На мобиле: простой fade-in строк со сдвигом, без побуквенной анимации
+    document.body.classList.add('simple-reveal');
+  }
 
   /* ---------- Loaded флаг ---------- */
   const startScene = () => document.body.classList.add('loaded');
