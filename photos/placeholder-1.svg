@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <radialGradient id="bg1" cx="0.5" cy="0.45" r="0.6">
+      <stop offset="0" stop-color="#3a1014"/>
+      <stop offset="0.6" stop-color="#1a0608"/>
+      <stop offset="1" stop-color="#05020a"/>
+    </radialGradient>
+    <radialGradient id="sig1" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ff7a5a"/>
+      <stop offset="0.5" stop-color="#c43a2a"/>
+      <stop offset="1" stop-color="#5a0f14"/>
+    </radialGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#bg1)"/>
+  <!-- Коловрат / 8-лучевая звезда -->
+  <g transform="translate(100,100)" fill="none" stroke="url(#sig1)" stroke-width="2.2" stroke-linecap="round">
+    <circle r="62" opacity="0.4"/>
+    <circle r="46" opacity="0.6"/>
+    <circle r="18"/>
+    <g>
+      <path d="M0,-60 L0,-30 M8,-30 L-8,-20"/>
+      <path d="M0,-60 L0,-30 M8,-30 L-8,-20" transform="rotate(45)"/>
+      <path d="M0,-60 L0,-30 M8,-30 L-8,-20" transform="rotate(90)"/>
+      <path d="M0,-60 L0,-30 M8,-30 L-8,-20" transform="rotate(135)"/>
+      <path d="M0,-60 L0,-30 M8,-30 L-8,-20" transform="rotate(180)"/>
+      <path d="M0,-60 L0,-30 M8,-30 L-8,-20" transform="rotate(225)"/>
+      <path d="M0,-60 L0,-30 M8,-30 L-8,-20" transform="rotate(270)"/>
+      <path d="M0,-60 L0,-30 M8,-30 L-8,-20" transform="rotate(315)"/>
+    </g>
+    <circle r="4" fill="url(#sig1)" stroke="none"/>
+  </g>
+  <!-- Руны по периметру -->
+  <g fill="#8b3a2a" font-family="Georgia, serif" font-size="12" text-anchor="middle" opacity="0.8">
+    <text x="100" y="22">ᚠ</text>
+    <text x="178" y="105">ᛉ</text>
+    <text x="100" y="188">ᛃ</text>
+    <text x="22" y="105">ᛟ</text>
+  </g>
+</svg>

@@ -1,0 +1,809 @@
+/* =========================================================
+   Кровавая луна — стили
+   Палитра крови, алтарь с медальонами, центральное поздравление
+   ========================================================= */
+
+:root {
+  --c-ink:          #05020a;
+  --c-void:         #0a0305;
+  --c-blood-void:   #140408;
+  --c-blood-deep:   #2e0a0f;
+  --c-blood:        #5a0f14;
+  --c-blood-bright: #8b1a1a;
+  --c-crimson:      #c43a2a;
+  --c-ember:        #ff5a2a;
+  --c-flame-hot:    #ffb85a;
+  --c-bone:         #d4c5a8;
+  --c-bone-dim:     #8a7a5e;
+  --c-stone:        #2a2420;
+  --c-stone-dark:   #14100e;
+  --c-forest:       #0a0808;
+  --c-forest-dim:   #040303;
+
+  --font-title:  'Cormorant SC', 'Yeseva One', serif;
+  --font-display:'Yeseva One', 'Cormorant SC', serif;
+  --font-script: 'Marck Script', cursive;
+  --font-body:   'Philosopher', Georgia, serif;
+
+  --scene-h: 100svh;
+
+  --medallion-size: clamp(100px, 15vw, 170px);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background: #000;
+  color: var(--c-bone);
+  font-family: var(--font-body);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { display: block; max-width: 100%; }
+
+/* ====== Заслонка ====== */
+.curtain {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 1.8s ease-out;
+}
+body.loaded .curtain { opacity: 0; }
+
+/* ====== Сцена ====== */
+.scene {
+  position: relative;
+  width: 100vw;
+  height: var(--scene-h);
+  min-height: 100svh;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 120% 70% at 50% 100%, #1e0408 0%, #100206 45%, #06010a 80%, #000 100%);
+}
+
+/* ====== Небо ====== */
+.sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 85% 55% at 62% 18%, rgba(196, 58, 42, 0.22) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 45% at 50% 5%, rgba(139, 26, 26, 0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 30% at 50% 60%, rgba(90, 15, 20, 0.25) 0%, transparent 80%),
+    linear-gradient(180deg, #0a0206 0%, #08010a 35%, #050108 65%, #020004 100%);
+  opacity: 0;
+  transition: opacity 2s ease-out 0.3s;
+}
+body.loaded .sky { opacity: 1; }
+
+/* ====== Звёзды ====== */
+.stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2.5s ease-out 0.6s;
+}
+body.loaded .stars { opacity: 1; }
+
+.star {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: #f4ddd0;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(240, 200, 180, 0.9), 0 0 10px rgba(255, 160, 140, 0.4);
+  animation: twinkle var(--dur, 4s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+.star.big   { width: 3px; height: 3px; box-shadow: 0 0 6px #ffd8c0, 0 0 14px rgba(255, 140, 120, 0.6); }
+.star.blood { background: #ffa070; box-shadow: 0 0 5px #c43a2a, 0 0 12px rgba(196, 58, 42, 0.7); }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50%      { opacity: 1;   transform: scale(1.3); }
+}
+
+/* ====== Кровавая луна ====== */
+.moon-wrap {
+  position: absolute;
+  top: 7%;
+  left: 61%;
+  width: clamp(200px, 28vw, 380px);
+  aspect-ratio: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2.5s ease-out 0.4s;
+}
+body.loaded .moon-wrap { opacity: 1; }
+
+.moon-corona {
+  position: absolute;
+  inset: -30%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(196, 58, 42, 0.35) 0%, rgba(139, 26, 26, 0.2) 30%, rgba(90, 15, 20, 0.1) 55%, transparent 75%);
+  filter: blur(20px);
+  animation: moon-corona 12s ease-in-out infinite;
+}
+@keyframes moon-corona {
+  0%, 100% { transform: scale(1);    opacity: 0.7; }
+  50%      { transform: scale(1.15); opacity: 1;   }
+}
+
+.moon {
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  background:
+    /* кратеры */
+    radial-gradient(circle at 28% 32%, rgba(40, 8, 10, 0.7) 0%, rgba(40, 8, 10, 0) 8%),
+    radial-gradient(circle at 62% 58%, rgba(40, 8, 10, 0.5) 0%, rgba(40, 8, 10, 0) 6%),
+    radial-gradient(circle at 42% 68%, rgba(30, 5, 8, 0.6) 0%, rgba(30, 5, 8, 0) 5%),
+    radial-gradient(circle at 70% 28%, rgba(40, 8, 10, 0.45) 0%, rgba(40, 8, 10, 0) 4%),
+    radial-gradient(circle at 38% 48%, rgba(30, 5, 8, 0.4) 0%, rgba(30, 5, 8, 0) 3%),
+    /* базовый цвет */
+    radial-gradient(circle at 38% 32%, #d85a3a 0%, #a03820 25%, #6a1a14 55%, #3a0a0c 85%, #1a0306 100%);
+  box-shadow:
+    inset -10px -15px 40px rgba(10, 2, 4, 0.85),
+    inset 8px 10px 25px rgba(255, 140, 100, 0.15),
+    0 0 40px rgba(196, 58, 42, 0.35),
+    0 0 100px rgba(139, 26, 26, 0.3);
+  filter: contrast(1.1) saturate(1.15);
+}
+
+.moon-shade {
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 80% 80%, rgba(0,0,0,0.55) 0%, transparent 55%);
+  mix-blend-mode: multiply;
+}
+
+/* ====== Дальний и средний лес ====== */
+.forest {
+  position: absolute;
+  left: -5%;
+  width: 110%;
+  pointer-events: none;
+}
+.forest svg { width: 100%; height: 100%; display: block; }
+
+.forest-back {
+  bottom: 16%;
+  height: 32vh;
+  color: var(--c-forest);
+  filter: blur(2px);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 2.2s ease-out 1s, transform 2.2s ease-out 1s;
+  animation: sway 14s ease-in-out infinite alternate;
+}
+.forest-mid {
+  bottom: 8%;
+  height: 38vh;
+  color: var(--c-forest-dim);
+  filter: blur(0.3px);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 2.2s ease-out 1.3s, transform 2.2s ease-out 1.3s;
+  animation: sway-2 11s ease-in-out infinite alternate;
+}
+body.loaded .forest-back,
+body.loaded .forest-mid {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes sway    { from { transform: rotate(-0.5deg); } to { transform: rotate(0.5deg); } }
+@keyframes sway-2  { from { transform: rotate(0.4deg);  } to { transform: rotate(-0.4deg); } }
+
+/* ====== Передний лес — ветви-рамка ====== */
+.forest-front {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: #000;
+  opacity: 0;
+  transition: opacity 2s ease-out 1.5s;
+  z-index: 8;
+}
+body.loaded .forest-front { opacity: 1; }
+
+.branch {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 28vw;
+  min-width: 180px;
+  max-width: 420px;
+  height: 100%;
+  filter: drop-shadow(0 0 30px rgba(0,0,0,0.8));
+}
+.branch-left  { left: 0; }
+.branch-right { right: 0; transform: scaleX(-1); }
+
+/* ====== Туман ====== */
+.fog {
+  position: absolute;
+  left: -30%;
+  width: 160%;
+  height: 55vh;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 3s ease-out 1.8s;
+  filter: blur(40px);
+}
+body.loaded .fog { opacity: 0.22; }
+
+.fog-1 {
+  top: 28%;
+  background:
+    radial-gradient(ellipse 50% 40% at 30% 50%, rgba(120, 40, 40, 0.45), transparent 70%),
+    radial-gradient(ellipse 40% 30% at 70% 40%, rgba(100, 30, 40, 0.35), transparent 70%);
+  animation: fog-drift 90s linear infinite;
+}
+.fog-2 {
+  top: 50%;
+  background:
+    radial-gradient(ellipse 60% 30% at 40% 50%, rgba(140, 60, 50, 0.4), transparent 70%),
+    radial-gradient(ellipse 50% 35% at 80% 60%, rgba(110, 40, 40, 0.35), transparent 70%);
+  animation: fog-drift 130s linear infinite reverse;
+}
+.fog-3 {
+  top: 68%;
+  background:
+    radial-gradient(ellipse 45% 35% at 20% 50%, rgba(160, 80, 70, 0.32), transparent 70%),
+    radial-gradient(ellipse 55% 30% at 65% 40%, rgba(130, 50, 50, 0.38), transparent 70%);
+  animation: fog-drift 160s linear infinite;
+}
+
+@keyframes fog-drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(30%); }
+}
+
+/* ====== Глаза духов ====== */
+.eyes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 1.5s ease-out 3.5s;
+}
+body.loaded .eyes { opacity: 1; }
+
+.eye-pair {
+  position: absolute;
+  width: 26px; height: 6px;
+  display: flex;
+  justify-content: space-between;
+  animation: blink var(--dur, 7s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+}
+.eye-pair::before,
+.eye-pair::after {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--eye-color, #ff5a3a);
+  box-shadow:
+    0 0 4px var(--eye-color, #ff5a3a),
+    0 0 10px var(--eye-color, #ff5a3a),
+    0 0 20px rgba(196, 58, 42, 0.6);
+}
+
+@keyframes blink {
+  0%, 8%       { opacity: 0; transform: scaleY(0.1); }
+  10%, 18%     { opacity: 1; transform: scaleY(1);   }
+  20%          { opacity: 0.2; transform: scaleY(0.3); }
+  22%, 32%     { opacity: 1; transform: scaleY(1);   }
+  34%, 100%    { opacity: 0; transform: scaleY(0.1); }
+}
+
+/* ====== Центральное кровавое свечение ====== */
+.altar-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(900px, 95vw);
+  height: 70vh;
+  pointer-events: none;
+  z-index: 4;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 50%,
+      rgba(196, 58, 42, 0.22) 0%,
+      rgba(139, 26, 26, 0.15) 25%,
+      rgba(90, 15, 20, 0.08) 50%,
+      transparent 75%);
+  filter: blur(30px);
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 3s ease-out 2s;
+  animation: altar-pulse 7s ease-in-out infinite alternate;
+}
+body.loaded .altar-glow { opacity: 1; }
+
+@keyframes altar-pulse {
+  0%   { transform: translate(-50%, -50%) scale(0.96); filter: blur(28px); }
+  100% { transform: translate(-50%, -50%) scale(1.06); filter: blur(36px); }
+}
+
+/* ====== Центральная колонна ====== */
+.center-column {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  width: min(760px, 94vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(28px, 5vh, 64px);
+  z-index: 10;
+  text-align: center;
+}
+
+/* ====== Алтарь: 3 медальона ====== */
+.altar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px, 3vw, 36px);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 1.4s ease-out 2.3s, transform 1.4s ease-out 2.3s;
+}
+body.loaded .altar { opacity: 1; transform: translateY(0); }
+
+.medallion {
+  position: relative;
+  width: var(--medallion-size);
+  aspect-ratio: 1;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.medallion.m-left   { transform: rotate(-4deg); }
+.medallion.m-right  { transform: rotate(4deg);  }
+.medallion.m-center { transform: scale(1.14); z-index: 2; }
+
+.medallion:hover { transform: rotate(0) scale(1.08); }
+.medallion.m-center:hover { transform: scale(1.2); }
+
+.medallion.ignited .medallion-frame {
+  animation: medallion-ignite 1.2s ease-out;
+}
+@keyframes medallion-ignite {
+  0%   { box-shadow: inherit; }
+  30%  { box-shadow:
+           inset 0 0 0 2px #ffcc88,
+           inset 0 0 0 4px #c43a2a,
+           inset 0 0 25px rgba(255, 200, 140, 0.6),
+           0 0 60px rgba(255, 160, 100, 0.9),
+           0 0 120px rgba(196, 58, 42, 0.7);
+  }
+  100% { box-shadow: inherit; }
+}
+
+.medallion-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  padding: 8px;
+  background:
+    conic-gradient(from 0deg,
+      #1a0a08 0deg,
+      #3a1a14 40deg,
+      #1a0a08 80deg,
+      #4a1a14 140deg,
+      #1a0a08 200deg,
+      #3a1a14 260deg,
+      #1a0a08 320deg,
+      #4a1a14 360deg);
+  box-shadow:
+    /* резной камень */
+    inset 0 0 0 2px #0a0305,
+    inset 0 2px 4px rgba(255, 120, 80, 0.12),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.9),
+    /* кровавое свечение */
+    0 0 30px rgba(139, 26, 26, 0.55),
+    0 0 60px rgba(90, 15, 20, 0.35),
+    /* тень под */
+    0 14px 35px rgba(0, 0, 0, 0.85);
+  transition: box-shadow 0.6s ease;
+}
+
+/* Внутренний кровавый канал */
+.medallion-frame::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 68%, #5a0f14 70%, #c43a2a 72%, #8b1a1a 74%, transparent 76%);
+  filter: blur(0.5px);
+  opacity: 0.9;
+}
+
+/* Внутренний тёмный ободок */
+.medallion-frame::after {
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border-radius: 50%;
+  border: 1.5px solid #2a1410;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.95);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.medallion-photo {
+  position: absolute;
+  inset: 11px;
+  width: calc(100% - 22px);
+  height: calc(100% - 22px);
+  border-radius: 50%;
+  object-fit: cover;
+  filter: grayscale(0.35) contrast(1.08) sepia(0.18) brightness(0.88) saturate(0.85);
+  z-index: 2;
+  background: radial-gradient(circle, #2a1410 0%, #0a0305 100%);
+}
+
+/* Рунные маркеры по сторонам света */
+.medallion-runes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.rune {
+  position: absolute;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(9px, 0.85vw, 12px);
+  color: #c43a2a;
+  text-shadow: 0 0 4px rgba(255, 120, 80, 0.85), 0 0 8px rgba(196, 58, 42, 0.7);
+  animation: rune-throb 4s ease-in-out infinite alternate;
+}
+.rune-n { top: -4px;    left: 50%; transform: translateX(-50%); }
+.rune-s { bottom: -4px; left: 50%; transform: translateX(-50%); }
+.rune-e { right: -6px;  top: 50%;  transform: translateY(-50%); }
+.rune-w { left: -6px;   top: 50%;  transform: translateY(-50%); }
+
+.medallion.m-center .rune { animation-duration: 3s; }
+.medallion.m-right .rune  { animation-delay: 0.4s; }
+.medallion.m-left .rune   { animation-delay: 0.8s; }
+
+@keyframes rune-throb {
+  0%, 100% { opacity: 0.5; text-shadow: 0 0 3px rgba(196, 58, 42, 0.5); }
+  50%      { opacity: 1;   text-shadow: 0 0 6px rgba(255, 140, 100, 1), 0 0 14px rgba(196, 58, 42, 0.9); }
+}
+
+/* ====== Поздравление ====== */
+.greeting {
+  opacity: 0;
+  transition: opacity 1.2s ease-out 3.5s;
+}
+body.loaded .greeting { opacity: 1; }
+
+.greeting > * + * { margin-top: clamp(14px, 2vh, 22px); }
+
+.pretitle {
+  font-family: var(--font-body);
+  font-size: clamp(0.65rem, 1.2vw, 0.82rem);
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: #a85a4a;
+  opacity: 0.75;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6.5vw, 4.2rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: #f4d4b0;
+  text-shadow:
+    /* чёткий край */
+    0 0 1px rgba(0, 0, 0, 0.9),
+    /* тёплый ореол */
+    0 0 8px rgba(255, 180, 100, 0.4),
+    /* кровавое свечение */
+    0 0 18px rgba(196, 58, 42, 0.75),
+    0 0 36px rgba(139, 26, 26, 0.65),
+    0 0 72px rgba(90, 15, 20, 0.55);
+  filter: contrast(1.02);
+}
+
+.sigil {
+  display: flex;
+  justify-content: center;
+  color: #8b1a1a;
+  opacity: 0.8;
+  margin-top: clamp(6px, 1vh, 12px) !important;
+}
+.sigil svg { width: clamp(160px, 28vw, 220px); height: auto; filter: drop-shadow(0 0 6px rgba(196, 58, 42, 0.6)); }
+
+.verse {
+  font-family: var(--font-script);
+  font-size: clamp(1.1rem, 2.3vw, 1.5rem);
+  line-height: 1.55;
+  color: #e8c8a8;
+  text-shadow: 0 0 8px rgba(139, 26, 26, 0.4), 0 0 1px rgba(0,0,0,0.8);
+}
+
+.blessing {
+  font-family: var(--font-title);
+  font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+  line-height: 1.55;
+  letter-spacing: 0.08em;
+  color: #d4b89a;
+  text-shadow: 0 0 6px rgba(139, 26, 26, 0.35), 0 0 1px rgba(0,0,0,0.7);
+}
+
+.rune-divider {
+  display: flex;
+  justify-content: center;
+  gap: 1.3em;
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  color: #8b3a2a;
+  letter-spacing: 0.05em;
+}
+.rune-divider span {
+  display: inline-block;
+  animation: divider-glow 4s ease-in-out infinite alternate;
+}
+.rune-divider span:nth-child(2) { animation-delay: 0.3s; }
+.rune-divider span:nth-child(3) { animation-delay: 0.6s; }
+.rune-divider span:nth-child(4) { animation-delay: 0.9s; }
+.rune-divider span:nth-child(5) { animation-delay: 1.2s; }
+
+@keyframes divider-glow {
+  0%, 100% { text-shadow: 0 0 2px rgba(196, 58, 42, 0.3); color: #6a2818; }
+  50%      { text-shadow: 0 0 10px rgba(255, 140, 100, 0.9), 0 0 20px rgba(196, 58, 42, 0.7); color: #d85a3a; }
+}
+
+.signature {
+  font-size: 1rem;
+  color: #6a2818;
+  opacity: 0.55;
+  letter-spacing: 0.5em;
+}
+
+/* Поэлементное проявление букв */
+.reveal .ch {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(6px) brightness(1.8);
+  transform: translateY(8px);
+  animation: char-ignite 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(4s + var(--i, 0) * 38ms);
+}
+.verse .ch   { animation-delay: calc(5.5s + var(--i, 0) * 22ms); }
+.blessing .ch { animation-delay: calc(7s   + var(--i, 0) * 28ms); }
+
+@keyframes char-ignite {
+  0%   { opacity: 0;   filter: blur(6px) brightness(2.5); transform: translateY(8px) scale(1.15); }
+  40%  { opacity: 0.9; filter: blur(2px) brightness(1.6); }
+  100% { opacity: 1;   filter: blur(0)   brightness(1);   transform: translateY(0)   scale(1);    }
+}
+
+/* ====== Свечи ====== */
+.candles { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+
+.candle {
+  position: absolute;
+  width: 6px; height: 14px;
+  background: linear-gradient(180deg, #e0c8b0 0%, #8b4a3a 50%, #3a1a14 100%);
+  border-radius: 2px 2px 1px 1px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition-delay: calc(2.5s + var(--i, 0) * 50ms);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.9);
+}
+body.loaded .candle { opacity: 1; transform: translateY(0); }
+
+.candle::before,
+.candle::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  pointer-events: none;
+}
+
+/* пламя свечи */
+.candle::before {
+  bottom: 100%;
+  width: 8px; height: 14px;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(ellipse at 50% 85%,
+      #fff2c8 0%,
+      var(--c-flame-hot) 30%,
+      var(--c-ember) 55%,
+      rgba(196, 58, 42, 0) 80%);
+  border-radius: 50% 50% 30% 30%;
+  filter: blur(0.4px);
+  animation: candle-dance calc(0.55s + var(--i, 0) * 9ms) ease-in-out infinite alternate;
+  transform-origin: 50% 100%;
+}
+
+/* ореол */
+.candle::after {
+  bottom: 50%;
+  width: 42px; height: 42px;
+  transform: translate(-50%, 50%);
+  background:
+    radial-gradient(circle,
+      rgba(255, 180, 80, 0.5) 0%,
+      rgba(196, 58, 42, 0.25) 45%,
+      transparent 75%);
+  border-radius: 50%;
+  filter: blur(5px);
+  mix-blend-mode: screen;
+  animation: candle-flicker calc(0.45s + var(--i, 0) * 11ms) ease-in-out infinite alternate;
+}
+
+.candle.far { transform: scale(0.68); opacity: 0.85; }
+.candle.near { transform: scale(1.25); }
+
+@keyframes candle-dance {
+  0%   { transform: translateX(-50%) scaleY(1)    rotate(-2deg); }
+  50%  { transform: translateX(-50%) scaleY(1.15) rotate(2deg); }
+  100% { transform: translateX(-50%) scaleY(0.95) rotate(-1deg); }
+}
+@keyframes candle-flicker {
+  0%, 100% { opacity: 0.85; transform: translate(-50%, 50%) scale(1);   }
+  50%      { opacity: 1;    transform: translate(-50%, 50%) scale(1.15); }
+}
+
+/* ====== Искры/пепел ====== */
+.embers { position: absolute; inset: 0; pointer-events: none; z-index: 6; }
+
+.ember {
+  position: absolute;
+  width: 3px; height: 3px;
+  background: #ff8855;
+  border-radius: 50%;
+  box-shadow: 0 0 5px #ff8855, 0 0 12px rgba(255, 120, 80, 0.7);
+  animation: ember-rise var(--dur, 2.8s) ease-out forwards;
+}
+@keyframes ember-rise {
+  0%   { transform: translate(0, 0) scale(1);    opacity: 1; }
+  70%  { opacity: 0.85; }
+  100% { transform: translate(var(--dx, 0), var(--dy, -180px)) scale(0.3); opacity: 0; }
+}
+
+/* ====== Светлячки (тёмно-красные духи) ====== */
+.fireflies { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+
+.firefly {
+  position: absolute;
+  width: 3px; height: 3px;
+  background: #ff8866;
+  border-radius: 50%;
+  box-shadow:
+    0 0 5px #ff6644,
+    0 0 14px rgba(196, 58, 42, 0.75);
+  animation: firefly-float var(--dur, 18s) ease-in-out infinite,
+             firefly-glow 2.6s ease-in-out infinite alternate;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+}
+body.loaded .firefly { opacity: 1; }
+
+@keyframes firefly-float {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(32px, -40px); }
+  40%  { transform: translate(-22px, -82px); }
+  60%  { transform: translate(42px, -60px); }
+  80%  { transform: translate(-32px, -30px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes firefly-glow {
+  from { opacity: 0.3; }
+  to   { opacity: 1;   }
+}
+
+/* ====== Виньетка + кровавый слой ====== */
+.vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 90% 70% at 50% 50%,
+    transparent 35%,
+    rgba(0, 0, 0, 0.5) 75%,
+    rgba(0, 0, 0, 0.9) 100%);
+  z-index: 20;
+}
+
+.blood-veil {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 70% 55% at 50% 50%,
+    rgba(139, 26, 26, 0.08) 0%,
+    rgba(90, 15, 20, 0.05) 40%,
+    transparent 80%);
+  mix-blend-mode: overlay;
+  z-index: 21;
+}
+
+/* ====== Подсказка ====== */
+.hint {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(212, 180, 150, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease-out 8s;
+  animation: hint-pulse 3s ease-in-out infinite;
+  text-shadow: 0 0 6px rgba(139, 26, 26, 0.6);
+}
+body.loaded .hint { opacity: 1; }
+
+@keyframes hint-pulse {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.85; }
+}
+
+/* ====== Parallax ====== */
+.parallax {
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+/* ====== Адаптив ====== */
+@media (max-width: 1024px) {
+  .moon-wrap { left: 64%; width: 30vw; }
+}
+
+@media (max-width: 768px) {
+  :root { --medallion-size: clamp(88px, 22vw, 120px); }
+  .moon-wrap { top: 4%; left: 60%; width: 42vw; }
+  .center-column { top: 52%; width: 94vw; gap: 22px; }
+  .altar { gap: clamp(10px, 2.5vw, 22px); }
+  .fog { filter: blur(24px); }
+  .hint { font-size: 0.6rem; letter-spacing: 0.25em; bottom: 10px; }
+}
+
+@media (max-width: 480px) {
+  :root { --medallion-size: 82px; }
+  .moon-wrap { top: 3%; width: 48vw; }
+  .branch { width: 22vw; min-width: 110px; }
+  .center-column { gap: 18px; }
+  .altar { gap: 8px; }
+  .medallion.m-left  { transform: rotate(-3deg); }
+  .medallion.m-right { transform: rotate(3deg);  }
+  .medallion.m-center { transform: scale(1.1); }
+  .rune { font-size: 8px; }
+  .title { letter-spacing: 0; }
+}
+
+/* ====== Reduced motion ====== */
+@media (prefers-reduced-motion: reduce) {
+  .star, .moon-corona, .forest-back, .forest-mid,
+  .eye-pair, .fog, .candle::before, .candle::after,
+  .altar-glow, .firefly, .rune-divider span, .rune,
+  .hint {
+    animation: none !important;
+  }
+  .reveal .ch { animation-duration: 0.4s; animation-delay: 0s !important; }
+}

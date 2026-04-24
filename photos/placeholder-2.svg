@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <radialGradient id="bg2" cx="0.5" cy="0.45" r="0.6">
+      <stop offset="0" stop-color="#4a1418"/>
+      <stop offset="0.6" stop-color="#1a0608"/>
+      <stop offset="1" stop-color="#05020a"/>
+    </radialGradient>
+    <radialGradient id="sig2" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffa070"/>
+      <stop offset="0.5" stop-color="#d85a3a"/>
+      <stop offset="1" stop-color="#6a1a14"/>
+    </radialGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#bg2)"/>
+  <!-- Велесов знак / рога быка -->
+  <g transform="translate(100,100)" fill="none" stroke="url(#sig2)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <circle r="64" opacity="0.35"/>
+    <circle r="48" opacity="0.55"/>
+    <!-- стилизованные рога -->
+    <path d="M -34,-6 Q -40,-30 -20,-38 Q 0,-42 0,-22 Q 0,-42 20,-38 Q 40,-30 34,-6" stroke-width="3"/>
+    <!-- средняя ось -->
+    <path d="M 0,-22 L 0,28"/>
+    <!-- подножие -->
+    <path d="M -22,28 L 22,28"/>
+    <!-- перекрестие снизу -->
+    <path d="M -12,40 L 12,40" opacity="0.6"/>
+    <path d="M -6,46 L 6,46" opacity="0.4"/>
+    <!-- центральная точка -->
+    <circle r="3" fill="url(#sig2)" stroke="none" transform="translate(0,0)"/>
+  </g>
+  <!-- Руны -->
+  <g fill="#a04a2a" font-family="Georgia, serif" font-size="12" text-anchor="middle" opacity="0.85">
+    <text x="100" y="22">ᚦ</text>
+    <text x="178" y="105">ᛇ</text>
+    <text x="100" y="188">ᛞ</text>
+    <text x="22" y="105">ᛜ</text>
+  </g>
+</svg>

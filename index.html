@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#05020a" />
+  <meta name="description" content="Ритуал кровавой луны — поздравление с Днём рождения в стиле тёмной славянской мифологии." />
+  <meta property="og:title" content="Кровавая луна · С Днём Рождения" />
+  <meta property="og:description" content="Поздравление в стиле тёмной славянской мифологии." />
+  <meta property="og:type" content="website" />
+
+  <title>Кровавая луна · С Днём Рождения</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Marck+Script&family=Cormorant+SC:wght@500;700&family=Philosopher:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="curtain" aria-hidden="true"></div>
+
+  <main class="scene" aria-label="Ритуал кровавой луны">
+
+    <!-- Небо с кровавым отливом -->
+    <div class="sky" aria-hidden="true"></div>
+
+    <!-- Звёзды -->
+    <div class="stars" aria-hidden="true"></div>
+
+    <!-- Кровавая луна -->
+    <div class="moon-wrap parallax" data-depth="0.015" aria-hidden="true">
+      <div class="moon-corona"></div>
+      <div class="moon"></div>
+      <div class="moon-shade"></div>
+    </div>
+
+    <!-- Дальний лес -->
+    <div class="forest forest-back parallax" data-depth="0.025" aria-hidden="true">
+      <svg viewBox="0 0 1600 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,500 L0,280 L40,260 L60,300 L90,230 L120,270 L150,200 L180,260 L220,240 L260,180 L290,250 L320,210 L360,160 L400,240 L440,220 L480,170 L520,230 L560,200 L600,150 L640,220 L680,190 L720,140 L760,210 L800,180 L840,130 L880,200 L920,170 L960,120 L1000,190 L1040,160 L1080,110 L1120,180 L1160,150 L1200,100 L1240,170 L1280,140 L1320,90 L1360,160 L1400,130 L1440,180 L1480,150 L1520,220 L1560,180 L1600,250 L1600,500 Z" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <!-- Средний лес -->
+    <div class="forest forest-mid parallax" data-depth="0.05" aria-hidden="true">
+      <svg viewBox="0 0 1600 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,600 L0,380 L30,340 L50,400 L80,300 L110,380 L140,260 L180,350 L220,300 L260,220 L290,330 L320,280 L360,200 L400,310 L440,270 L490,180 L520,290 L570,240 L610,160 L650,280 L700,220 L740,140 L780,260 L830,200 L870,120 L910,250 L960,190 L1000,110 L1050,240 L1090,180 L1130,100 L1180,230 L1220,170 L1270,90 L1310,220 L1360,160 L1400,80 L1440,210 L1490,150 L1530,220 L1570,180 L1600,290 L1600,600 Z" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <!-- Туман -->
+    <div class="fog fog-1" aria-hidden="true"></div>
+    <div class="fog fog-2" aria-hidden="true"></div>
+    <div class="fog fog-3" aria-hidden="true"></div>
+
+    <!-- Глаза духов -->
+    <div class="eyes" aria-hidden="true"></div>
+
+    <!-- Ритуальное кровавое свечение в центре (заменяет костёр) -->
+    <div class="altar-glow" aria-hidden="true"></div>
+
+    <!-- Центральная колонна: алтарь + поздравление -->
+    <div class="center-column">
+
+      <!-- Алтарь с тремя медальонами -->
+      <div class="altar" role="group" aria-label="Медальоны">
+        <figure class="medallion m-left">
+          <div class="medallion-frame">
+            <img class="medallion-photo"
+                 src="photos/1.jpg"
+                 alt="Портрет 1"
+                 onerror="this.onerror=null;this.src='photos/placeholder-1.svg'" />
+          </div>
+          <div class="medallion-runes" aria-hidden="true">
+            <span class="rune rune-n">ᚠ</span>
+            <span class="rune rune-e">ᛉ</span>
+            <span class="rune rune-s">ᛃ</span>
+            <span class="rune rune-w">ᛟ</span>
+          </div>
+        </figure>
+
+        <figure class="medallion m-center">
+          <div class="medallion-frame">
+            <img class="medallion-photo"
+                 src="photos/2.jpg"
+                 alt="Портрет 2"
+                 onerror="this.onerror=null;this.src='photos/placeholder-2.svg'" />
+          </div>
+          <div class="medallion-runes" aria-hidden="true">
+            <span class="rune rune-n">ᚦ</span>
+            <span class="rune rune-e">ᛇ</span>
+            <span class="rune rune-s">ᛞ</span>
+            <span class="rune rune-w">ᛜ</span>
+          </div>
+        </figure>
+
+        <figure class="medallion m-right">
+          <div class="medallion-frame">
+            <img class="medallion-photo"
+                 src="photos/3.jpg"
+                 alt="Портрет 3"
+                 onerror="this.onerror=null;this.src='photos/placeholder-3.svg'" />
+          </div>
+          <div class="medallion-runes" aria-hidden="true">
+            <span class="rune rune-n">ᛗ</span>
+            <span class="rune rune-e">ᛈ</span>
+            <span class="rune rune-s">ᛏ</span>
+            <span class="rune rune-w">ᛁ</span>
+          </div>
+        </figure>
+      </div>
+
+      <!-- Поздравление (EDIT_ME) -->
+      <section class="greeting" role="region" aria-label="Поздравление">
+        <p class="pretitle"></p>
+
+        <h1 class="title reveal">С Днём Рождения!</h1>
+
+        <div class="sigil" aria-hidden="true">
+          <svg viewBox="0 0 200 24" xmlns="http://www.w3.org/2000/svg">
+            <line x1="4" y1="12" x2="80" y2="12" stroke="currentColor" stroke-width="1" />
+            <circle cx="100" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="1.2" />
+            <circle cx="100" cy="12" r="2" fill="currentColor" />
+            <line x1="120" y1="12" x2="196" y2="12" stroke="currentColor" stroke-width="1" />
+          </svg>
+        </div>
+
+        <p class="verse reveal">
+          В час, когда кровавая луна смотрит сквозь ветви,<br/>
+          прими дары этой ночи:<br/>
+          силу крови, огонь сердца, память ушедших.
+        </p>
+
+        <div class="rune-divider" aria-hidden="true">
+          <span>ᚠ</span><span>ᛉ</span><span>ᛃ</span><span>ᛇ</span><span>ᛟ</span>
+        </div>
+
+        <p class="blessing reveal">
+          Долгих лет, светлой души,<br/>
+          и побольше денег.
+        </p>
+
+        <p class="signature" aria-hidden="true">✦ ∘ ✧ ∘ ✦</p>
+      </section>
+    </div>
+
+    <!-- Свечи (генерируются JS) -->
+    <div class="candles" aria-hidden="true"></div>
+
+    <!-- Светлячки -->
+    <div class="fireflies" aria-hidden="true"></div>
+
+    <!-- Ветви-рамка -->
+    <div class="forest forest-front" aria-hidden="true">
+      <svg class="branch branch-left" viewBox="0 0 400 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,0 L0,600 L80,600 Q120,400 90,280 Q60,180 150,120 Q220,70 180,0 Z M0,100 Q70,130 100,200 Q130,280 60,340 L0,360 Z" fill="currentColor"/>
+      </svg>
+      <svg class="branch branch-right" viewBox="0 0 400 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M400,0 L400,600 L320,600 Q280,400 310,280 Q340,180 250,120 Q180,70 220,0 Z M400,100 Q330,130 300,200 Q270,280 340,340 L400,360 Z" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <!-- Искры/пепел (JS) -->
+    <div class="embers" aria-hidden="true"></div>
+
+    <!-- Виньетка + кровавый слой -->
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="blood-veil" aria-hidden="true"></div>
+
+  </main>
+
+  <div class="hint" aria-hidden="true">
+    <span></span>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
